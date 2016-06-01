@@ -51,8 +51,6 @@
         
     }
     
-    free(methods);
-    
     NSMethodSignature *ms = [self methodSignatureForSelector:name];
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:ms];
     invocation.target = self;
@@ -62,9 +60,9 @@
         
         if (primaryKey == '@') {
             
-            NSData *value;
+            const void *value;
             [invocation getReturnValue:&value];
-            return value;
+            return (__bridge id)(value);
 
         } else if (primaryKey == 'q'){
             
